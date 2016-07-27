@@ -60,14 +60,14 @@ def get_project_by_title(title):
 
 
 
-def get_grade_by_github_title(github, title):
+def get_grade_by_github_title(user_entered_github, user_entered_title):
     """Print grade student received for a project."""
     QUERY = """
         SELECT student_github, project_title, grade
         FROM grades
-        WHERE title = :title AND student_github = :github
+        WHERE project_title = :placeholder_title AND student_github = :placeholder_github
         """
-    db_cursor = db.session.execute(QUERY, {'student_github': github},{'title': title} )
+    db_cursor = db.session.execute(QUERY, {'placeholder_github': user_entered_github,'placeholder_title': user_entered_title} )
     row = db_cursor.fetchone()     #returns tuple
     print "Student Github: %s Project Title: %s Grade: %d " % (row[0], row[1], row[2])
 
